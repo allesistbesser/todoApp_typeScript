@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import TodoList from '../components/TodoList';
 
-interface TodoType {
-  todo: string,
-  isDone: boolean,
-  priority: 'high' | 'middle' | 'low',
-  id: string | number
-}
 const url: string = import.meta.env.VITE_BASE_URL;
 const Home = () => {
   const [todos, settodos] = useState<TodoType[]>([])
@@ -20,12 +17,28 @@ const Home = () => {
     }
   }
 
+  const toogleTodos : ToggleFn = async (todo) =>{
+    try {
+      await axios.put(`${url}/${todo.id}/`,
+      {...todo , isDone:!todo.isDone})
+    } catch (error) {
+      console.log(error);
+    } finally {
+      getTodos()
+    }
+  }
+
   useEffect(() => {
     getTodos()
   }, [])
 
   return (
-    <div>Home</div>
+    <div>
+      <Navbar/>
+      <TodoList todos={todos} toggleTodo={toogleTodos}/>
+      <Footer/>
+
+    </div>
   )
 }
 
