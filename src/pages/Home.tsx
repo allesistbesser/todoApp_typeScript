@@ -3,6 +3,7 @@ import axios from 'axios'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TodoList from '../components/TodoList';
+import AddTodo from '../components/AddTodo'
 
 const url: string = import.meta.env.VITE_BASE_URL;
 const Home = () => {
@@ -16,7 +17,18 @@ const Home = () => {
       console.log(error);
     }
   }
-
+  const addTodo : AddFn = async (todo) =>{
+    try {
+      await axios.post(url, todo);
+      // notify("The todo was created successfully!", "success");
+    } catch (error) {
+      console.log(error);
+      // notify("The todo was not created successfully!", "error");
+    } finally {
+      getTodos();
+    }
+  };
+  
   const toogleTodos : ToggleFn = async (todo) =>{
     try {
       await axios.put(`${url}/${todo.id}/`,
@@ -28,6 +40,17 @@ const Home = () => {
     }
   }
 
+  const deleteTodo: DeleteFn = async (id) =>{
+    try {
+      await axios.delete(`${url}/${id}`);
+      // notify
+    } catch (error) {
+      console.log(error);
+    } finally{
+      getTodos()
+    }
+  }
+
   useEffect(() => {
     getTodos()
   }, [])
@@ -35,7 +58,8 @@ const Home = () => {
   return (
     <div>
       <Navbar/>
-      <TodoList todos={todos} toggleTodo={toogleTodos}/>
+      <AddTodo addTodo={addTodo}/>
+      <TodoList todos={todos} toggleTodo={toogleTodos} deleteTodo={deleteTodo}/>
       <Footer/>
 
     </div>

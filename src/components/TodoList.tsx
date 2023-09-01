@@ -1,5 +1,5 @@
 import React from 'react'
-import AddTodo from './AddTodo'
+
 import { Box, Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -15,14 +15,15 @@ const Item = styled(Paper)(({ theme }) => ({
 interface ITodoList {
   todos: TodoType[],
   toggleTodo: ToggleFn
+  deleteTodo : DeleteFn
 }
 
-const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo }) => {
+const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
   const progressTodos = todos.filter(item => !item.isDone)
   const completedTodos = todos.filter(item => item.isDone)
   return (
     <div>
-      <AddTodo />
+      
 
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent={"center"} >
 
@@ -43,7 +44,7 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo }) => {
           </Typography>
           {completedTodos.map((item) => (
             <Item onClick={() => toggleTodo(item)} sx={{ m: 1, cursor: "pointer" }} key={item.id}>{item.todo}
-              <DeleteForeverIcon sx={{ float: "right" }} fontSize='small' color='error' />
+              <DeleteForeverIcon onClick={()=>deleteTodo(item.id)} sx={{ float: "right" }} fontSize='small' color='error' />
             </Item>
           ))}
 
