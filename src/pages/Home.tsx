@@ -74,7 +74,7 @@ const Home = () => {
   return (
     <div>
       <Navbar/>
-      <AddTodo addTodo={addTodo} updateTodoInfo={updateTodoInfo} updateTodo={updateTodo}/>
+      <AddTodo addTodo={addTodo} updateTodoInfo={updateTodoInfo} updateTodo={updateTodo} setupdateTodoInfo={setupdateTodoInfo}/>
       <TodoList todos={todos} toggleTodo={toogleTodos} deleteTodo={deleteTodo} setupdateTodoInfo={setupdateTodoInfo}/>
       <Footer/>
       

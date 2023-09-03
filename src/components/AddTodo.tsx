@@ -14,10 +14,11 @@ import FormControl from '@mui/material/FormControl';
 interface IAddTodoComp {
   addTodo: AddFn,
   updateTodoInfo: any,
-  updateTodo: UpdtFn
+  updateTodo: UpdtFn,
+  setupdateTodoInfo: any
 }
 
-const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo }) => {
+const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo , setupdateTodoInfo}) => {
   const [todo, settodo] = useState<string>('')
   const [priority, setpriority] = useState<string>('');
 
@@ -27,7 +28,7 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo }
     if (updateTodoInfo) {
       updateTodo({ id: updateTodoInfo?.id, todo: todo, priority: priority, isDone: updateTodoInfo?.isDone })
       settodo('')
-    } else if (todo != "") {
+    } else if (todo != undefined) {
       addTodo({ todo: todo, priority: priority, isDone: false })
         .then(() => { settodo(''); setpriority('') })
     }
@@ -37,7 +38,7 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo }
     settodo(updateTodoInfo?.todo)
     setpriority(updateTodoInfo?.priority)
   }, [updateTodoInfo])
-
+console.log(todo);
   return (
 
     <Container component="main" maxWidth="xl" sx={{ border: "red 0px solid" }}>
@@ -88,14 +89,24 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo }
             </Grid>
 
           </Grid>
+          <Box sx={{display:'flex', flexDirection:"row", justifyContent:"center",p:2}}>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, maxWidth: 150, ml: "40%" }}
+            sx={{ m:2, maxWidth:"10rem"}}
           >
             {updateTodoInfo ? 'Update' : 'Add Todo'}
           </Button>
+          {updateTodoInfo? <Button
+            onClick={()=>{settodo('');setpriority('');setupdateTodoInfo('')}}
+            fullWidth
+            variant="contained" color="error"
+            sx={{ m:2, maxWidth:"10rem" }}
+          >
+            Reset
+          </Button>:null}
+          </Box>
 
         </Box>
       </Box>

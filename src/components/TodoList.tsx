@@ -42,7 +42,7 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdat
           {progressTodos?.map((item) => (
             <Item sx={{ m: 1 }} key={item.id}>
               <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item)} >{item.todo}</Typography>
-              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} />
+              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item}/>
             </Item>
           ))}
         </Grid>
@@ -55,7 +55,7 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdat
             <Item sx={{ m: 1 }} key={item.id}>
               <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item)} >{item.todo}</Typography>
               {/* onClick={() => setupdateTodoInfo(item)} */}
-              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} />
+              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item}/>
             </Item>
           ))}
         </Grid>
