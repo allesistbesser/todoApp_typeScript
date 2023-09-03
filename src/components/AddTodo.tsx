@@ -16,18 +16,19 @@ interface IAddTodoComp {
 }
 
 const AddTodo: React.FC<IAddTodoComp> = ({ addTodo }) => {
-
-  const [priority, setpriority] = useState<any>();
+  const [todo, settodo] = useState<string>()
+  const [priority, setpriority] = useState<string>('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    if (data.get('todo') != "") {
-      addTodo({ todo: data.get('todo') as string, priority: priority, isDone: false })
+    // const data = new FormData(event.currentTarget);
+    if (todo != "") {
+      addTodo({ todo: todo, priority: priority, isDone: false })
+      .then(()=>{settodo('');setpriority('')})
     }
 
   }
-
+console.log(priority);
   return (
 
     <Container component="main" maxWidth="xl" sx={{ border: "red 0px solid" }}>
@@ -53,6 +54,8 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo }) => {
                 label="todo"
                 name="todo"
                 autoComplete="todo"
+                value={todo}
+                onChange={(e)=>settodo(e.target.value)}
               />
             </Grid>
             <Grid item xs={1} lg={2}>
@@ -62,13 +65,14 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={priority}
+                  value={priority || ''}
                   label="priority"
                   onChange={(e) => setpriority(e.target.value)}
+                  defaultValue={''}
                 >
-                  <MenuItem value={'high'}>High</MenuItem>
-                  <MenuItem value={'middle'}>Middle</MenuItem>
-                  <MenuItem value={'low'}>Low</MenuItem>
+                  <MenuItem value={'a_high'}>High</MenuItem>
+                  <MenuItem value={'b_middle'}>Middle</MenuItem>
+                  <MenuItem value={'c_low'}>Low</MenuItem>
                 </Select>
                 </FormControl>
               </Box>

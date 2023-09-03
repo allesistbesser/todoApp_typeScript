@@ -1,7 +1,7 @@
 interface TodoType {
   todo: string,
   isDone: boolean,
-  priority: 'high' | 'middle' | 'low',
+  priority: 'a_high' | 'b_middle' | 'c_low',
   id: string | number
 }
 

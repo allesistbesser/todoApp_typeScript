@@ -6,32 +6,31 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 interface ITodoProperties {
   id: string | number,
-  priority: 'high' | 'middle' | 'low',
-  deleteTodo : DeleteFn,
+  priority: 'a_high' | 'b_middle' | 'c_low',
+  deleteTodo: DeleteFn,
   isDone: boolean
 }
 
-const TodoProperties: React.FC<ITodoProperties> = ({id,priority,deleteTodo,isDone}) => {
+const TodoProperties: React.FC<ITodoProperties> = ({ id, priority, deleteTodo, isDone }) => {
 
   const getPriority = (pr: string) => {
-    console.log(pr);
     switch (pr) {
-      case "high":
+      case "a_high":
         return "error"
-      case "middle":
+      case "b_middle":
         return "warning"
-      case "low":
+      case "c_low":
         return "info"
 
     }
   }
- 
+
   return (
     <>
-    {isDone ? <DeleteForeverIcon onClick={() => deleteTodo(id)} sx={{ float: "right" , cursor:"pointer"}} fontSize='small' color='error' />: null}
-      
+      {isDone ? <DeleteForeverIcon onClick={() => deleteTodo(id)} sx={{ float: "right", cursor: "pointer" }} fontSize='small' color='error' /> : null}
+
       <Tooltip title={`Ptiority ${priority}`}>
-        {priority == "high" ? <ArrowUpwardIcon color={getPriority(priority)} sx={{ float: "right" }} /> : priority == "middle" ? <ArrowForwardIcon color={getPriority(priority)} sx={{ float: "right" }} /> : <ArrowDownwardIcon color={getPriority(priority)} sx={{ float: "right" }} />}
+        {priority == "a_high" ? <ArrowUpwardIcon color={getPriority(priority)} sx={{ float: "right" }} /> : priority == "b_middle" ? <ArrowForwardIcon color={getPriority(priority)} sx={{ float: "right" }} /> : <ArrowDownwardIcon color={getPriority(priority)} sx={{ float: "right" }} />}
       </Tooltip>
     </>
   )

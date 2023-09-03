@@ -1,12 +1,10 @@
-import { Grid, Paper, Tooltip, Typography } from '@mui/material'
+import { Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import TodoProperties from './TodoProperties';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowCircleRightTwoToneIcon from '@mui/icons-material/ArrowCircleRightTwoTone';
+
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === 'dark' ? '#000000' : '#dfeef3',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'left',
@@ -22,6 +20,16 @@ interface ITodoList {
 const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
   const progressTodos = todos.filter(item => !item.isDone)
   const completedTodos = todos.filter(item => item.isDone)
+
+  const sortingTodo = (item: any) => {
+    item.sort(function (a: any, b: any) {
+      return a.priority.localeCompare(b.priority);
+    });
+  }
+  
+  sortingTodo(progressTodos)
+  sortingTodo(completedTodos)
+  
   return (
     <div>
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent={"center"} >
@@ -43,9 +51,9 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
           </Typography>
           {completedTodos.map((item) => (
             <Item sx={{ m: 1 }} key={item.id}>
-            <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onClick={() => toggleTodo(item)}>{item.todo}</Typography>
-            <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} />
-          </Item>
+              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onClick={() => toggleTodo(item)}>{item.todo}</Typography>
+              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} />
+            </Item>
           ))}
         </Grid>
       </Grid>
