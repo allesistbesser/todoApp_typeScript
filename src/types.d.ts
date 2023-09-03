@@ -9,3 +9,4 @@ interface TodoType {
 type ToggleFn = (todo:TodoType) => Promise<void> 
 type DeleteFn = (id: string | number) => Promise<void>
 type AddFn = ({todo: string,isDone:boolean,priority:string}) => Promise<void>;
+type UpdtFn = ({id:string ,todo: string,isDone:boolean,priority:string}) => Promise<void>;

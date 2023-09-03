@@ -8,6 +8,7 @@ import AddTodo from '../components/AddTodo'
 const url: string = import.meta.env.VITE_BASE_URL;
 const Home = () => {
   const [todos, settodos] = useState<TodoType[]>([])
+  const [updateTodoInfo, setupdateTodoInfo] = useState<any>()
  
   const getTodos = async () => {
     try {
@@ -28,6 +29,21 @@ const Home = () => {
       getTodos();
     }
   };
+  const updateTodo : UpdtFn = async (todo) =>{
+    try {
+      await axios.put(`${url}/${todo.id}/`,
+      {...todo , todo:todo.todo, priority:todo.priority, isDone:todo.isDone})
+      // notify("The todo was created successfully!", "success");
+      console.log(todo.id);
+    } catch (error) {
+      console.log(error);
+      // notify("The todo was not created successfully!", "error");
+    } finally {
+      getTodos();
+      setupdateTodoInfo('')
+    }
+  };
+  
   
   const toogleTodos : ToggleFn = async (todo) =>{
     try {
@@ -58,10 +74,10 @@ const Home = () => {
   return (
     <div>
       <Navbar/>
-      <AddTodo addTodo={addTodo}/>
-      <TodoList todos={todos} toggleTodo={toogleTodos} deleteTodo={deleteTodo}/>
+      <AddTodo addTodo={addTodo} updateTodoInfo={updateTodoInfo} updateTodo={updateTodo}/>
+      <TodoList todos={todos} toggleTodo={toogleTodos} deleteTodo={deleteTodo} setupdateTodoInfo={setupdateTodoInfo}/>
       <Footer/>
-
+      
     </div>
   )
 }

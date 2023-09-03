@@ -9,15 +9,17 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'left',
   color: theme.palette.text.secondary,
+  userSelect: "none",
 }));
 
 interface ITodoList {
   todos: TodoType[],
   toggleTodo: ToggleFn
   deleteTodo: DeleteFn
+  setupdateTodoInfo: any
 }
 
-const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
+const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdateTodoInfo }) => {
   const progressTodos = todos.filter(item => !item.isDone)
   const completedTodos = todos.filter(item => item.isDone)
 
@@ -26,10 +28,10 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
       return a.priority.localeCompare(b.priority);
     });
   }
-  
+
   sortingTodo(progressTodos)
   sortingTodo(completedTodos)
-  
+
   return (
     <div>
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent={"center"} >
@@ -37,9 +39,9 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
           <Typography color="secondary" align="center" variant="h4">
             InProgress Todos
           </Typography>
-          {progressTodos.map((item) => (
+          {progressTodos?.map((item) => (
             <Item sx={{ m: 1 }} key={item.id}>
-              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onClick={() => toggleTodo(item)}>{item.todo}</Typography>
+              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item)} >{item.todo}</Typography>
               <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} />
             </Item>
           ))}
@@ -49,9 +51,10 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo }) => {
           <Typography sx={{ color: "green" }} align="center" variant="h4">
             Completed Todos
           </Typography>
-          {completedTodos.map((item) => (
+          {completedTodos?.map((item) => (
             <Item sx={{ m: 1 }} key={item.id}>
-              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onClick={() => toggleTodo(item)}>{item.todo}</Typography>
+              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item)} >{item.todo}</Typography>
+              {/* onClick={() => setupdateTodoInfo(item)} */}
               <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} />
             </Item>
           ))}
