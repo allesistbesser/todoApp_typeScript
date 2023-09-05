@@ -1,27 +1,48 @@
-# React + TypeScript + Vite
+# To-Do App with TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+Project aims to create a To-Do App with TypeScript.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Expected Outcome
 
-## Expanding the ESLint configuration
+![todoapp](./src/asset/MY-TODO-App.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Objective
 
-- Configure the top-level `parserOptions` property like this:
+Build a TodoApp with Typescript using Vite+ReactJS.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### At the end of the project, following topics are to be covered;
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- MUI
+- TS
+- Vite + React JS
+
+## Live
+
+<a href="https://wfvsxj-5173.csb.app" target="_blank">MY TODO</a>
+
+## How do we create mockApi? Watch the video!
+
+<a href="https://www.youtube.com/watch?v=i_Gvlp83GMk" target="_blank">
+ Watch the video
+</a><br>
+<br>
+
+Or you can find **MockApi quick start guide** <a href="https://github.com/mockapi-io/docs/wiki/Quick-start-guide" target="_blank">here</a>
+
+**<p align="center">&#9786; Happy Coding &#9997;</p>**
+
+
+
+
+## Useful Links
+- [Adding typescript](https://create-react-app.dev/docs/adding-typescript/)
+
+- [Other ready template npm commands](https://www.npmjs.com/search?q=cra%20--)
+
+- [Typescript Tutorials](https://www.totaltypescript.com/tutorials)
+
+- [React Typescript Cheatsheets](https://react-typescript-cheatsheet.netlify.app/)
+
+- [Custom hooks written in TypeScript](https://usehooks-ts.com/introduction)
