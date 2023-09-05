@@ -2,7 +2,6 @@ import { Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import TodoProperties from './TodoProperties';
 
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#000000' : '#dfeef3',
   ...theme.typography.body2,
@@ -10,16 +9,22 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'left',
   color: theme.palette.text.secondary,
   userSelect: "none",
+  '&:hover': {
+    background: "#a97f7f47",
+ },
 }));
 
 interface ITodoList {
   todos: TodoType[],
   toggleTodo: ToggleFn
   deleteTodo: DeleteFn
-  setupdateTodoInfo: any
+  setupdateTodoInfo: any,
+  callSnackbar: any,
+  updateTodoInfo:TodoType
 }
 
-const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdateTodoInfo }) => {
+const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdateTodoInfo, callSnackbar,updateTodoInfo }) => {
+
   const progressTodos = todos.filter(item => !item.isDone)
   const completedTodos = todos.filter(item => item.isDone)
 
@@ -41,8 +46,8 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdat
           </Typography>
           {progressTodos?.map((item) => (
             <Item sx={{ m: 1 }} key={item.id}>
-              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item)} >{item.todo}</Typography>
-              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item}/>
+              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item, callSnackbar)} >{item.todo}</Typography>
+              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item} callSnackbar={callSnackbar} />
             </Item>
           ))}
         </Grid>
@@ -53,9 +58,8 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdat
           </Typography>
           {completedTodos?.map((item) => (
             <Item sx={{ m: 1 }} key={item.id}>
-              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item)} >{item.todo}</Typography>
-              {/* onClick={() => setupdateTodoInfo(item)} */}
-              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item}/>
+              <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item, callSnackbar)} >{item.todo}</Typography>
+              <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item} callSnackbar={callSnackbar} />
             </Item>
           ))}
         </Grid>

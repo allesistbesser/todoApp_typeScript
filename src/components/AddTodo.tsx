@@ -15,32 +15,43 @@ interface IAddTodoComp {
   addTodo: AddFn,
   updateTodoInfo: any,
   updateTodo: UpdtFn,
-  setupdateTodoInfo: any
+  setupdateTodoInfo: any,
+  callSnackbar: any
 }
 
-const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo , setupdateTodoInfo}) => {
+const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo, setupdateTodoInfo, callSnackbar }) => {
+
   const [todo, settodo] = useState<string>('')
-  const [priority, setpriority] = useState<string>('');
+  const [priority, setpriority] = useState<string>('a_high');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
     if (updateTodoInfo) {
       updateTodo({ id: updateTodoInfo?.id, todo: todo, priority: priority, isDone: updateTodoInfo?.isDone })
+        .then(() => setupdateTodoInfo(''))
       settodo('')
-    } else if (todo != undefined) {
-      addTodo({ todo: todo, priority: priority, isDone: false })
-        .then(() => { settodo(''); setpriority('') })
+      callSnackbar("success", "todo uptated")
+    } else if (todo && priority != undefined) {
+      addTodo({ todo: todo, priority: priority, isDone: false }, callSnackbar)
+        .then(() => { settodo(''); setpriority('a_high') })
+    } else {
+      callSnackbar("warning", "todo or priority must not be empty")
     }
-
   }
+
+  const resetForm = () => {
+    settodo('');
+    setpriority('a_high');
+    setupdateTodoInfo('')
+  }
+
   useEffect(() => {
     settodo(updateTodoInfo?.todo)
-    setpriority(updateTodoInfo?.priority)
+    setpriority(updateTodoInfo?.priority || 'a_high')
   }, [updateTodoInfo])
-console.log(todo);
-  return (
 
+
+  return (
     <Container component="main" maxWidth="xl" sx={{ border: "red 0px solid" }}>
       <CssBaseline />
       <Box
@@ -49,13 +60,10 @@ console.log(todo);
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-
         }}
       >
-
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, border: "red 0px solid", minWidth: "70%" }}>
           <Grid container spacing={2}  >
-
             <Grid item xs={8} lg={10} >
               <TextField
                 required
@@ -64,7 +72,7 @@ console.log(todo);
                 label="todo"
                 name="todo"
                 autoComplete="todo"
-                value={todo}
+                value={todo || ''}
                 onChange={(e) => settodo(e.target.value)}
               />
             </Grid>
@@ -75,10 +83,10 @@ console.log(todo);
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={priority || ''}
+                    value={priority}
                     label="priority"
                     onChange={(e) => setpriority(e.target.value)}
-                    defaultValue={''}
+                    required
                   >
                     <MenuItem value={'a_high'}>High</MenuItem>
                     <MenuItem value={'b_middle'}>Middle</MenuItem>
@@ -87,33 +95,28 @@ console.log(todo);
                 </FormControl>
               </Box>
             </Grid>
-
           </Grid>
-          <Box sx={{display:'flex', flexDirection:"row", justifyContent:"center",p:2}}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ m:2, maxWidth:"10rem"}}
-          >
-            {updateTodoInfo ? 'Update' : 'Add Todo'}
-          </Button>
-          {updateTodoInfo? <Button
-            onClick={()=>{settodo('');setpriority('');setupdateTodoInfo('')}}
-            fullWidth
-            variant="contained" color="error"
-            sx={{ m:2, maxWidth:"10rem" }}
-          >
-            Reset
-          </Button>:null}
+          <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: "center", p: 2 }}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ m: 2, maxWidth: "10rem" }}
+            >
+              {updateTodoInfo ? 'Update' : 'Add Todo'}
+            </Button>
+            {updateTodoInfo ? <Button
+              onClick={resetForm}
+              fullWidth
+              variant="contained" color="error"
+              sx={{ m: 2, maxWidth: "10rem" }}
+            >
+              Reset
+            </Button> : null}
           </Box>
-
         </Box>
       </Box>
-
     </Container>
-
   )
 }
-
 export default AddTodo

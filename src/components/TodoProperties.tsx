@@ -11,10 +11,11 @@ interface ITodoProperties {
   deleteTodo: DeleteFn,
   isDone: boolean,
   setupdateTodoInfo: any,
-  item: TodoType
+  item: TodoType,
+  callSnackbar: any
 }
 
-const TodoProperties: React.FC<ITodoProperties> = ({ id, priority, deleteTodo, isDone, setupdateTodoInfo,item }) => {
+const TodoProperties: React.FC<ITodoProperties> = ({ id, priority, deleteTodo, isDone, setupdateTodoInfo, item, callSnackbar }) => {
 
   const getPriority = (pr: string) => {
     switch (pr) {
@@ -24,17 +25,21 @@ const TodoProperties: React.FC<ITodoProperties> = ({ id, priority, deleteTodo, i
         return "warning"
       case "c_low":
         return "info"
-
     }
   }
 
   return (
     <>
-      {isDone ? <DeleteForeverIcon onClick={() => deleteTodo(id)} sx={{ float: "right", cursor: "pointer" }} fontSize='small' color='error' /> : null}
-      <EditNoteOutlinedIcon onClick={()=> setupdateTodoInfo(item)} sx={{ float: "right", cursor: "pointer" }}/>
-
+      {isDone ?
+        <DeleteForeverIcon onClick={() => deleteTodo(id, callSnackbar)} sx={{ float: "right", cursor: "pointer" }} fontSize='small' color='error' />
+        : null}
+      <EditNoteOutlinedIcon onClick={() => setupdateTodoInfo(item)} sx={{ float: "right", cursor: "pointer" }} />
       <Tooltip title={`Ptiority ${priority}`}>
-        {priority == "a_high" ? <ArrowUpwardIcon color={getPriority(priority)} sx={{ float: "left" }} /> : priority == "b_middle" ? <ArrowForwardIcon color={getPriority(priority)} sx={{ float: "left" }} /> : <ArrowDownwardIcon color={getPriority(priority)} sx={{ float: "left" }} />}
+        {priority == "a_high" ?
+          <ArrowUpwardIcon color={getPriority(priority)} sx={{ float: "left" }} />
+          : priority == "b_middle" ?
+            <ArrowForwardIcon color={getPriority(priority)} sx={{ float: "left" }} />
+            : <ArrowDownwardIcon color={getPriority(priority)} sx={{ float: "left" }} />}
       </Tooltip>
     </>
   )
