@@ -28,7 +28,7 @@ const NotifyBar: React.FC<INotifyBar> = ({ color, message, open, setOpen }) => {
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={color} sx={{ width: '30%', position: "fixed", top: 20, right: 20 }}>
+        <Alert onClose={handleClose} severity={color} sx={{ position: "fixed", top: 50, right: 20 }}>
           {message}
         </Alert>
       </Snackbar>

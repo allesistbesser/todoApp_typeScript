@@ -2,17 +2,18 @@ import { Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import TodoProperties from './TodoProperties';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#000000' : '#dfeef3',
+const Item = styled(Paper)(({ theme, color}) => ({
+   backgroundColor:color,
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'left',
-  color: theme.palette.text.secondary,
+  color:'#353841',
   userSelect: "none",
   '&:hover': {
-    background: "#a97f7f47",
+    background: "#c2e9f9f2",
  },
-}));
+ 
+ }));
 
 interface ITodoList {
   todos: TodoType[],
@@ -39,13 +40,13 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdat
 
   return (
     <div>
-      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent={"center"} >
+       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent={"center"} >
         <Grid item xs={12} sm={6} md={4}>
           <Typography color="secondary" align="center" variant="h4">
             InProgress Todos
           </Typography>
           {progressTodos?.map((item) => (
-            <Item sx={{ m: 1 }} key={item.id}>
+            <Item sx={{ m: 1 }} key={item.id} color={updateTodoInfo?.id == item.id ? "#a3b2ee":'white'}>
               <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item, callSnackbar)} >{item.todo}</Typography>
               <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item} callSnackbar={callSnackbar} />
             </Item>
@@ -57,7 +58,7 @@ const TodoList: React.FC<ITodoList> = ({ todos, toggleTodo, deleteTodo, setupdat
             Completed Todos
           </Typography>
           {completedTodos?.map((item) => (
-            <Item sx={{ m: 1 }} key={item.id}>
+            <Item sx={{ m: 1 }} key={item.id} color={updateTodoInfo?.id == item.id ? "#a3b2ee":'white'}>
               <Typography sx={{ display: "inline", cursor: 'pointer', p: 2 }} onDoubleClick={() => toggleTodo(item, callSnackbar)} >{item.todo}</Typography>
               <TodoProperties id={item.id} priority={item.priority} deleteTodo={deleteTodo} isDone={item.isDone} setupdateTodoInfo={setupdateTodoInfo} item={item} callSnackbar={callSnackbar} />
             </Item>

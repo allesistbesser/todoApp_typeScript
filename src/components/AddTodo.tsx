@@ -66,7 +66,7 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo, 
           <Grid container spacing={2}  >
             <Grid item xs={8} lg={10} >
               <TextField
-                required
+              sx={{backgroundColor:"white"}}
                 fullWidth
                 id="todo"
                 label="todo"
@@ -77,7 +77,7 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo, 
               />
             </Grid>
             <Grid item xs={1} lg={2}>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ minWidth: 120 , backgroundColor:"white", padding:"5px", borderRadius:"5px"}}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Priority</InputLabel>
                   <Select
@@ -87,6 +87,7 @@ const AddTodo: React.FC<IAddTodoComp> = ({ addTodo, updateTodoInfo, updateTodo, 
                     label="priority"
                     onChange={(e) => setpriority(e.target.value)}
                     required
+                    color='primary'
                   >
                     <MenuItem value={'a_high'}>High</MenuItem>
                     <MenuItem value={'b_middle'}>Middle</MenuItem>

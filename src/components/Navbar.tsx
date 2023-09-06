@@ -12,8 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import { Link } from '@mui/material';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = { 'Who am I?': 'https://www.linkedin.com/in/mesuttepebas/', 'Page 1': '/', 'Page 2': '/' };
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
@@ -29,6 +30,7 @@ function Navbar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+
   };
 
   const handleCloseUserMenu = () => {
@@ -36,7 +38,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{backgroundImage:"linear-gradient(to right, #354d81 , #4e75ca)"}}>
+    <AppBar position="static" sx={{ backgroundImage: "linear-gradient(to right, #354d81 , #4e75ca)" }}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters>
           <AssignmentTurnedInIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -53,7 +55,7 @@ function Navbar() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
-              
+
             }}
           >
             MY-TODO
@@ -88,9 +90,13 @@ function Navbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {Object.keys(pages).map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">
+                    <Link href={pages[page]} underline="none" color='inherit' target="_blank">
+                      {page}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -115,13 +121,15 @@ function Navbar() {
             MY-TODO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {Object.keys(pages).map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link href={pages[page]} underline="none" color='inherit'>
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>

@@ -7,7 +7,7 @@ const url: string = import.meta.env.VITE_BASE_URL;
 const useFunctions = () => {
   // const {callSnackbar} = useSnackbar()
   const [todos, settodos] = useState<TodoType[]>([])
-  const [updateTodoInfo, setupdateTodoInfo] = useState<any>()
+  const [updateTodoInfo, setupdateTodoInfo] = useState<TodoType>()
 
   const getTodos = async () => {
     try {

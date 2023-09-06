@@ -16,7 +16,7 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
     <BottomNavigation sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         label="Recents"
